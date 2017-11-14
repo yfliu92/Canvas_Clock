@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>physical test</title>
+</head>
+<body>
+<canvas id="canvas" style="display: block; margin: 0 auto;border: 1px solid #aaa;"></canvas>
+<script>
+    var ball = { x:512 , y:100 , r:20, g:2, vx:-4, vy:-10, color:'#005588'};
+    window.onload = function(){
+        var canvas = document.getElementById('canvas');
+
+        canvas.width = 1024;
+        canvas.height = 768;
+        var context = canvas.getContext('2d');
+        setInterval(function(){
+            render(context);
+            update();
+        },50);
+    } ;
+    function render(con){
+        con.clearRect(0,0,con.canvas.width,con.canvas.height);
+        con.fillStyle = ball.color;
+        con.beginPath();
+        con.arc(ball.x , ball.y , ball.r , 0 , 2*Math.PI);
+        con.closePath();
+
+        con.fill();
+    }
+    function update(){
+        ball.x += ball.vx;
+        ball.y += ball.vy;
+        ball.vy += ball.g;
+
+        if(ball.y >= 768-ball.r){
+            ball.y = 768 - ball.r;
+            ball.vy = -ball.vy*0.5;
+        }
+    }
+</script>
+</body>
+</html>
